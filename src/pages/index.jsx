@@ -10,18 +10,21 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { getNewsByDate } from "../services/newsAm";
+import { getNewsByDate } from "@/services";
+import { useDate } from "@/hooks";
 import Head from "next/head";
 import { RotatingTriangles } from "react-loader-spinner";
 import { useTranslation } from "@/contexts/TranslationContext";
 
 export default function Home() {
-  const { t, setLanguage } = useTranslation();
-
+  const { t, setLanguage, language } = useTranslation();
+  const { getStructuredDate } = useDate("2022-03-25");
   const [parsedHTML, setParsedHTML] = useState();
   useEffect(() => {
-    getNewsByDate().then((data) => setParsedHTML(data));
-  }, []);
+    getNewsByDate({ ...getStructuredDate(), language }).then((data) =>
+      setParsedHTML(data)
+    );
+  }, [language]);
   return (
     <>
       <Head>

@@ -1,5 +1,7 @@
 import { parse } from "node-html-parser";
 
+const newsAmLanguages = { en: "eng", hy: "arm", ru: "rus" };
+
 const domainNormalizer = (link) =>
   link.includes("news.am") ? link : `https://news.am/${link}`;
 
@@ -30,8 +32,16 @@ const dateNormalizer = (date) => {
   );
 };
 
-export const getNewsByDate = async () => {
-  return await fetch("api//newsAm?year=2023&month=02&day=06")
+const zeroAdder = (number) => (number < 10 ? "0" + number : number);
+
+export const getNewsByDate = async ({ year, month, day, language }) => {
+  console.log("🟢", { year, month, day, language });
+
+  return await fetch(
+    `api//newsAm?year=${year}month=${zeroAdder(month)}&day=${zeroAdder(
+      day
+    )}&lang=${newsAmLanguages[language]}`
+  )
     .then((response) => response.text())
     .then((data) => parse(data))
     .then((dom) => {
@@ -52,3 +62,5 @@ export const getNewsByDate = async () => {
       return news;
     });
 };
+
+export default getNewsByDate;
