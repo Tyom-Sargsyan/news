@@ -18,10 +18,10 @@ import { useTranslation } from "@/contexts/TranslationContext";
 
 export default function Home() {
   const { t, setLanguage, language } = useTranslation();
-  const { getStructuredDate } = useDate("2022-03-25");
+  const { getStructuredDate } = useDate();
   const [parsedHTML, setParsedHTML] = useState();
   useEffect(() => {
-    getNewsByDate({ ...getStructuredDate(), language }).then((data) =>
+    getNewsByDate({ ...getStructuredDate("2022-02-25"), language }).then((data) =>
       setParsedHTML(data)
     );
   }, [language]);

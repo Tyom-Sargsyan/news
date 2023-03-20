@@ -34,11 +34,9 @@ const dateNormalizer = (date) => {
 
 const zeroAdder = (number) => (number < 10 ? "0" + number : number);
 
-export const getNewsByDate = async ({ year, month, day, language }) => {
-  console.log("🟢", { year, month, day, language });
-
-  return await fetch(
-    `api//newsAm?year=${year}month=${zeroAdder(month)}&day=${zeroAdder(
+export const getNewsByDate = async ({ year, month, day, language }) =>
+  await fetch(
+    `api//newsAm?year=${year}&month=${zeroAdder(month)}&day=${zeroAdder(
       day
     )}&lang=${newsAmLanguages[language]}`
   )
@@ -61,6 +59,5 @@ export const getNewsByDate = async ({ year, month, day, language }) => {
       );
       return news;
     });
-};
 
 export default getNewsByDate;
