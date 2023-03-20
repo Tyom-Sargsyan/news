@@ -1,7 +1,6 @@
 export default function useDate() {
   const getStructuredDate = (date) => {
     date = date ? new Date(date) : new Date();
-    console.log("date", date);
 
     return {
       year: date.getFullYear(),
