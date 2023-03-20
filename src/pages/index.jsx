@@ -15,16 +15,20 @@ import { useDate } from "@/hooks";
 import Head from "next/head";
 import { RotatingTriangles } from "react-loader-spinner";
 import { useTranslation } from "@/contexts/TranslationContext";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export default function Home() {
+  const [startDate, setStartDate] = useState(new Date());
+
   const { t, setLanguage, language } = useTranslation();
   const { getStructuredDate } = useDate();
   const [parsedHTML, setParsedHTML] = useState();
   useEffect(() => {
-    getNewsByDate({ ...getStructuredDate("2022-02-25"), language }).then((data) =>
+    getNewsByDate({ ...getStructuredDate(startDate), language }).then((data) =>
       setParsedHTML(data)
     );
-  }, [language]);
+  }, [language, startDate]);
   return (
     <>
       <Head>
@@ -56,6 +60,11 @@ export default function Home() {
           >
             Rus
           </Button>
+          <DatePicker
+            selected={startDate}
+            onChange={(date) => setStartDate(date)}
+          />
+
           <Heading>{t("Hello")}</Heading>
           {!parsedHTML ? (
             <Flex justifyContent="center" w="full" mt={40}>
