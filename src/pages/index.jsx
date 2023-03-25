@@ -17,6 +17,7 @@ import { RotatingTriangles } from "react-loader-spinner";
 import { useTranslation } from "@/contexts/TranslationContext";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import Navbar from "@/components/Navbar/Navbar";
 
 export default function Home() {
   const [startDate, setStartDate] = useState(new Date());
@@ -34,6 +35,7 @@ export default function Home() {
       <Head>
         <title>News</title>
       </Head>
+      <Navbar/>
       <main>
         <Container maxW="container.xl">
           <Button
